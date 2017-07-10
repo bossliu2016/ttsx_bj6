@@ -11,9 +11,9 @@
 {%block right%}
 		<div class="r_wrap fr clearfix">
 			<div class="sort_bar">
-				<a href="#" class="active">默认</a>
-				<a href="#">价格</a>
-				<a href="#">人气</a>
+				<a href="/list{{t1.id}}_1_1/" {%if orderby == '1'%}class="active"{%endif%}>默认</a>
+				<a href="/list{{t1.id}}_1_2/?desc={%if desc == '1'%}0{%else%}1{%endif%}" {%if orderby == '2'%}class="active"{%endif%}>价格</a>
+				<a href="/list{{t1.id}}_1_3/" {%if orderby == '3'%}class="active"{%endif%}>人气</a>
 			</div>
 
 			<ul class="goods_type_list clearfix">
@@ -32,19 +32,55 @@
 
 			<div class="pagenation">
 				{%if page.has_previous%}
-				<a href="/list{{t1.id}}_{{page.number|add:-1}}/"><上一页</a>
+				<a href="/list{{t1.id}}_1_{{orderby}}/?desc={{desc}}">首页</a>
+				<a href="/list{{t1.id}}_{{page.number|add:-1}}_{{orderby}}/?desc={{desc}}"><上一页</a>
 				{%endif%}
 
-				{%for pindex in page.paginator.page_range%}
-				{%if pindex == page.number%}
-				<a href="#" class="active">{{pindex}}</a>
+				{%if page.paginator.num_pages < 5%}
+					{%for pindex in page.paginator.page_range%}
+					{%if pindex == page.number%}
+					<a href="#" class="active">{{pindex}}</a>
+					{%else%}
+					<a href="/list{{t1.id}}_{{pindex}}_{{orderby}}/?desc={{desc}}">{{pindex}}</a>
+					{%endif%}
+					{%endfor%}
 				{%else%}
-				<a href="/list{{t1.id}}_{{pindex}}/">{{pindex}}</a>
+					{%if page.number == 1%}
+						<a href="#" class="active">1</a>
+						<a href="/list{{t1.id}}_2_{{orderby}}/?desc={{desc}}">2</a>
+						<a href="/list{{t1.id}}_3_{{orderby}}/?desc={{desc}}">3</a>
+						<a href="/list{{t1.id}}_4_{{orderby}}/?desc={{desc}}">4</a>
+						<a href="/list{{t1.id}}_5_{{orderby}}/?desc={{desc}}">5</a>
+					{%elif page.number == 2%}
+						<a href="/list{{t1.id}}_1_{{orderby}}/?desc={{desc}}">1</a>
+						<a href="#" class="active">2</a>
+						<a href="/list{{t1.id}}_3_{{orderby}}/?desc={{desc}}">3</a>
+						<a href="/list{{t1.id}}_4_{{orderby}}/?desc={{desc}}">4</a>
+						<a href="/list{{t1.id}}_5_{{orderby}}/?desc={{desc}}">5</a>
+					{%elif page.number == page.paginator.num_pages%}
+						<a href="/list{{t1.id}}_{{page.number|add:-4}}_{{orderby}}/?desc={{desc}}">{{page.number|add:-4}}</a>
+						<a href="/list{{t1.id}}_{{page.number|add:-3}}_{{orderby}}/?desc={{desc}}">{{page.number|add:-3}}</a>
+						<a href="/list{{t1.id}}_{{page.number|add:-2}}_{{orderby}}/?desc={{desc}}">{{page.number|add:-2}}</a>
+						<a href="/list{{t1.id}}_{{page.number|add:-1}}_{{orderby}}/?desc={{desc}}">{{page.number|add:-1}}</a>
+						<a href="#" class="active">{{page.number}}</a>
+					{%elif page.number == page.paginator.num_pages|add:-1%}
+						<a href="/list{{t1.id}}_{{page.number|add:-3}}_{{orderby}}/?desc={{desc}}">{{page.number|add:-3}}</a>
+						<a href="/list{{t1.id}}_{{page.number|add:-2}}_{{orderby}}/?desc={{desc}}">{{page.number|add:-2}}</a>
+						<a href="/list{{t1.id}}_{{page.number|add:-1}}_{{orderby}}/?desc={{desc}}">{{page.number|add:-1}}</a>
+						<a href="#" class="active">{{page.number}}</a>
+						<a href="/list{{t1.id}}_{{page.number|add:1}}_{{orderby}}/?desc={{desc}}">{{page.number|add:1}}</a>
+					{%else%}
+						<a href="/list{{t1.id}}_{{page.number|add:-2}}_{{orderby}}/?desc={{desc}}">{{page.number|add:-2}}</a>
+						<a href="/list{{t1.id}}_{{page.number|add:-1}}_{{orderby}}/?desc={{desc}}">{{page.number|add:-1}}</a>
+						<a href="#" class="active">{{page.number}}</a>
+						<a href="/list{{t1.id}}_{{page.number|add:1}}_{{orderby}}/?desc={{desc}}">{{page.number|add:1}}</a>
+						<a href="/list{{t1.id}}_{{page.number|add:2}}_{{orderby}}/?desc={{desc}}">{{page.number|add:2}}</a>
+					{%endif%}
 				{%endif%}
-				{%endfor%}
 
 				{%if page.has_next%}
-				<a href="/list{{t1.id}}_{{page.number|add:1}}/">下一页></a>
+				<a href="/list{{t1.id}}_{{page.number|add:1}}_{{orderby}}/?desc={{desc}}">下一页></a>
+				<a href="/list{{t1.id}}_{{page.paginator.num_pages}}_{{orderby}}/?desc={{desc}}">末页</a>
 				{%endif%}
 				<hr>
 				首页 上一页 5 6 7 8 9 下一页 末页

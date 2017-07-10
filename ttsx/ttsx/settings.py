@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'ttsx_user',
     'ttsx_goods',
     'tinymce',
+    'haystack',
+    'ttsx_cart',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -119,8 +121,14 @@ TINYMCE_DEFAULT_CONFIG = {
     'height': 400,
 }
 
-
-
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    }
+}
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 1
 
 
 
