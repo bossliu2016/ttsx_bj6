@@ -78,6 +78,12 @@ def logout(request):
     request.session.flush()
     return redirect('/user/login/')
 
+def islogin(request):
+    result=0
+    if request.session.has_key('uid'):
+        result=1
+    return JsonResponse({'islogin':result})
+
 @user_login
 def center(request):
     user=UserInfo.objects.get(pk=request.session['uid'])
