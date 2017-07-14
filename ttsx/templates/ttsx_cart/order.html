@@ -77,9 +77,11 @@
 			<div class="total_pay">实付款：<b>52.60元</b></div>
 		</div>
 	</div>
-
+<form method="post" action="/order/">
+{% csrf_token %}
+    <input type="hidden" name="cart_ids" value="{{ c_ids }}">
 	<div class="order_submit clearfix">
-		<a href="javascript:;" id="order_btn">提交订单</a>
+		<input type="submit" id="order_btn" value="提交订单">
 	</div>
-
+</form>
 {%endblock body%}

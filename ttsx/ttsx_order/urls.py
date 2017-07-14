@@ -1,5 +1,5 @@
 from django.conf.urls import url
-
-urlpattners=[
-
+import views
+urlpatterns=[
+    url('^$',views.do_order),
 ]

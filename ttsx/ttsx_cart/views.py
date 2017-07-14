@@ -58,7 +58,8 @@ def delete(request):
 
 def order(request):
     user=UserInfo.objects.get(pk=request.session.get('uid'))
-    cart_ids=request.POST.getlist('cart_id')
+    cart_ids=request.POST.getlist('cart_id')#[4,5,6]
     cart_list=CartInfo.objects.filter(id__in=cart_ids)
-    context={'title':'提交订单','user':user,'cart_list':cart_list}
+    c_ids=','.join(cart_ids)#4,5,6
+    context={'title':'提交订单','user':user,'cart_list':cart_list,'c_ids':c_ids}
     return render(request,'ttsx_cart/order.html',context)
